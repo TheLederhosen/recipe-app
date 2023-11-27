@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { RecipeService } from './services/recipe.service';
 import { RecipeDto } from '../../../server/recipe-app/global/recipe-dto'
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'test_angular_deno_stack';
 
   recipe: RecipeDto;
 
-  constructor(private recipeService: RecipeService) { 
+  constructor(public router: Router,
+    private recipeService: RecipeService) { 
     this.recipe = {
       userId: 0,
       title: "",

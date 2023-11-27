@@ -1,4 +1,51 @@
-<h3>Response from the server:</h3>
-<p>{{recipe.userId}}</p>
-<p>{{recipe.title}}</p>
-<p>{{recipe.description}}</p>
+<div class="container">
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened disableClose>
+      <div class="flex-container">
+        <div class="button-container">
+          <button mat-fab color="primary" routerLink="/create" *ngIf="router.url !== '/create'">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-fab color="primary" routerLink="" *ngIf="router.url === '/create'">
+            <mat-icon>done</mat-icon>
+          </button>
+        </div>
+        <div class="items">
+          <div class="item">
+            <button mat-icon-button color="accent" routerLink="">
+              <mat-icon fontSet="material-symbols-outlined">home</mat-icon>
+            </button>
+            <p class="mat-small">Home</p>
+          </div>
+          <div class="item">
+            <button mat-icon-button color="accent" routerLink="/stats">
+              <mat-icon>search</mat-icon>
+            </button>
+            <p class="mat-small">Search</p>
+          </div>
+          <div class="item">
+            <button mat-icon-button color="accent" routerLink="/list">
+              <mat-icon fontSet="material-symbols-outlined">casino</mat-icon>
+            </button>
+            <p class="mat-small">Random</p>
+          </div>
+          <div class="item">
+            <button mat-icon-button color="accent">
+              <mat-icon fontSet="material-symbols-outlined">shopping_basket</mat-icon>
+            </button>
+            <p class="mat-small">Ingredients</p>
+          </div>
+        </div>
+        <div class="profile">
+          <button mat-icon-button color="accent" routerLink="/stats">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <p class="mat-small">Account</p>
+        </div>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
