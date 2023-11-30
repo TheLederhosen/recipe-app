@@ -1,0 +1,54 @@
+<div class="container">
+    <mat-card class="example-card">
+        <div class="image-container">
+            <mat-icon class="upload-icon" aria-hidden="false" aria-label="Example home icon"
+                fontIcon="file_upload"></mat-icon>
+        </div>
+        <form class="half-container" [formGroup]="form" id="createForm" (ngSubmit)="onSubmit()">
+            <div class="info-container">
+                <mat-card-header>
+                    <mat-form-field class="title-container" appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <input type="text" matInput formControlName="title" placeholder="Recipe title">
+                        <mat-hint>Choose an appropriate name for the recipe</mat-hint>
+                    </mat-form-field>
+                </mat-card-header>
+                <mat-card-content class="info-container">
+                    <mat-form-field appearance="outline" class="description-container" id="text">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description" cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows={{maxRows}}
+                            placeholder="Detailed description of the recipe"></textarea>
+                        <mat-hint>Describe the recipe and all the involved steps to making the final meal</mat-hint>
+                    </mat-form-field>
+                </mat-card-content>
+            </div>
+            <mat-card class="ing-container" id="scroll-target">
+                <mat-card-content class="flex-column">
+                    <ul>
+                        <div mat-subheader class="list-header">Ingredient List</div>
+                        <mat-divider></mat-divider>
+                        <div formArrayName="ingredients">
+                            <li *ngFor="let ingredient of form.controls.ingredients.controls; let i = index">
+                                <mat-form-field subscriptSizing="dynamic" appearance="outline">
+                                    <mat-label>Ingredient</mat-label>
+                                    <input type="text" matInput formControlName="{{i}}">
+                                </mat-form-field>
+                            </li>
+                        </div>
+                    </ul>
+                    <div>
+                        <button type="button" mat-mini-fab color="secondary" style="margin-top: 8px; margin-right: 16px;"
+                            (click)="addIngredientItem()">
+                            <mat-icon>add_24px</mat-icon>
+                        </button>
+                        <button type="button" mat-mini-fab color="secondary" style="margin-top: 8px;"
+                            [disabled]="form.controls.ingredients.length == 1" (click)="removeIngredientItem()">
+                            <mat-icon>delete_24px</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </form>
+    </mat-card>
+</div>

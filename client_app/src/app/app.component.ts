@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RecipeService } from './services/recipe.service';
-import { RecipeDto } from '../../../server/recipe-app/global/recipe-dto'
-import {Router} from '@angular/router';
+import { RecipeDto } from './global/recipe-dto'
+import { Router } from '@angular/router';
+import { CreateRecipeComponent } from './components/create-recipe/create-recipe.component';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,21 +11,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   title = 'test_angular_deno_stack';
 
-  recipe: RecipeDto;
-
-  constructor(public router: Router,
-    private recipeService: RecipeService) { 
-    this.recipe = {
-      userId: 0,
-      title: "",
-      description: ""
-    }
-  }
-  ngOnInit() {
-    this.recipeService.getRecipe().subscribe((result: any) => {
-      this.recipe = result;
-    });
+  constructor(public router: Router) {
   }
 }

@@ -6,7 +6,7 @@
           <button mat-fab color="primary" routerLink="/create" *ngIf="router.url !== '/create'">
             <mat-icon>add</mat-icon>
           </button>
-          <button mat-fab color="primary" routerLink="" *ngIf="router.url === '/create'">
+          <button type="submit" form="createForm" id="form-button" mat-fab color="primary" *ngIf="router.url === '/create'" disabled="disabled">
             <mat-icon>done</mat-icon>
           </button>
         </div>

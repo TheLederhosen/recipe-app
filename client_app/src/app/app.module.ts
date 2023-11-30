@@ -9,13 +9,23 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 import { OverviewComponent } from "./components/overview/overview.component";
+import { ViewRecipeComponent } from './components/view-recipe/view-recipe.component';
+import { CreateRecipeComponent } from './components/create-recipe/create-recipe.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     OverviewComponent,
+    ViewRecipeComponent,
+    CreateRecipeComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,8 +36,14 @@ import { OverviewComponent } from "./components/overview/overview.component";
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatCardModule,
+    MatListModule,
+    FormsModule,
+    MatFormFieldModule, 
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
