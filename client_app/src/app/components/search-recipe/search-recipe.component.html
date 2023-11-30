@@ -1,0 +1,20 @@
+<div class="container">
+    <mat-form-field appearance="outline" class="my-themed-form-field">
+        <input type="text" matInput placeholder="Search for recipes" (input)="searchRecipes($event)">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <div class="cards-container" *ngIf="(recipes$ | async) as recipes">
+        <mat-card class="recipe-card is-focusable" role="button" tabindex="0"
+        (click)="cardEventHandler(recipe.id)" 
+        (keydown.enter)="cardEventHandler(recipe.id)" 
+        (keydown.space)="cardEventHandler(recipe.id); $event.preventDefault()" *ngFor="let recipe of recipes; let i = index">
+            <div class="image-container">
+                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            </div>
+            <div class="content">
+                <mat-card-title>{{recipe.title}}</mat-card-title>
+                <mat-card-subtitle class="text-oneline">{{recipe.description}}</mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+</div>

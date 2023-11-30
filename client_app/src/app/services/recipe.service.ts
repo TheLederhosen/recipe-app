@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Observable, catchError, of } from "rxjs";
 import { CreateRecipeDto, RecipeDto } from "../global/recipe-dto";
 import { Globals } from "../global/globals"
 
@@ -11,7 +11,7 @@ export class RecipeService {
 
   constructor(private http: HttpClient, private globals: Globals) { }
 
-  getRecipe(id: number): Observable<RecipeDto> {
+  getRecipebyId(id: number): Observable<RecipeDto> {
     return this.http.get<RecipeDto>(this.recipesBaseUri + "/" + id);
   }
 
@@ -31,5 +31,14 @@ export class RecipeService {
         console.error('There was an error!', error);
       }
     })
+  }
+
+  searchRecipe(seachTerm: string): Observable<RecipeDto[]> {
+    const params = new HttpParams()
+      .set('searchTerm', seachTerm)
+
+    return this.http.get<RecipeDto[]>(this.recipesBaseUri, {params}).pipe(
+      catchError(err => of([]))
+    );
   }
 }

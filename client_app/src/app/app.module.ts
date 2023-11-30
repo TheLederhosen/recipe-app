@@ -19,6 +19,7 @@ import { OverviewComponent } from "./components/overview/overview.component";
 import { ViewRecipeComponent } from './components/view-recipe/view-recipe.component';
 import { CreateRecipeComponent } from './components/create-recipe/create-recipe.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { SearchRecipeComponent } from './components/search-recipe/search-recipe.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     OverviewComponent,
     ViewRecipeComponent,
     CreateRecipeComponent,
+    SearchRecipeComponent,
   ],
   imports: [
     BrowserModule,

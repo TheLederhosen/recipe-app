@@ -60,9 +60,9 @@ export class CreateRecipeComponent implements OnInit {
     control.push(new FormControl('', Validators.required));
   }
 
-  removeIngredientItem() {
+  removeIngredientItem(index: number) {
     const control = this.form.controls.ingredients as FormArray;
-    control.removeAt(-1);
+    control.removeAt(index);
   }
 
   onSubmit() {

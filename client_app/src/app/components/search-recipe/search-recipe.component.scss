@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 56px;
+}
+
+.cards-container {
+    width: 70%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 16px
+}
+
+.recipe-card {
+    width: 13%;
+}
+
+.is-focusable {
+    cursor: pointer;
+}
+
+.is-focusable:focus-visible {
+    outline: none;
+    background-color: #efefef;  
+    box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
+}
+
+.is-focusable:hover {
+    outline: none;
+    background-color: #efefef;  
+    box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
+}
+
+.image-container {
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content {
+    padding: 16px;
+}
+
+.text-oneline {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+:host ::ng-deep .mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 28px;
+}
+
+.my-themed-form-field {
+    width: 70%;
+}

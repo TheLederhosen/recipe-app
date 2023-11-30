@@ -11,6 +11,7 @@ import { RecipeDto } from '../../global/recipe-dto';
 export class ViewRecipeComponent implements OnInit {
 
   recipe: RecipeDto = {
+    id: 0,
     userId: 0,
     title: "",
     description: "",
@@ -24,11 +25,12 @@ export class ViewRecipeComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(
-      (params) => this.recipeService.getRecipe(params["id"])
+      (params) => this.recipeService.getRecipebyId(params["id"])
         .subscribe((recipe) => {
+          console.log(recipe)
           this.recipe = recipe;
         }))
+
   }
 
-  ingredients: string[] = ["300g Mehl", "Nudeln", "Other things", "Thing", "Looooooooooooooooooong thing"];
 }
