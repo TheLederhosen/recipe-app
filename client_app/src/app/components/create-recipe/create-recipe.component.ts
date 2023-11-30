@@ -72,6 +72,7 @@ export class CreateRecipeComponent implements OnInit {
       const ingredients = this.form.controls.ingredients.value.filter((item): item is string => item !== null);
 
       this.recipeService.postRecipe(title, description, ingredients);
+      // TODO: Implement error handling
 
       this.form.reset({}, { emitEvent: false })
 
