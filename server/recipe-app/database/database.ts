@@ -1,8 +1,10 @@
 import { postgres } from "../deps.ts";
 
-let sql;
-if (Deno.env.get("DATABASE_URL")) {
-  sql = postgres(Deno.env.get("DATABASE_URL"));
+let sql: any;
+const db_env = Deno.env.get("DATABASE_URL")
+
+if (db_env != undefined) {
+  sql = postgres(db_env);
 } else {
   sql = postgres({});
 }

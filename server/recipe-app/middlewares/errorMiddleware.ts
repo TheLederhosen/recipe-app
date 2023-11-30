@@ -1,4 +1,6 @@
-const errorMiddleware = async (context, next) => {
+import { Context } from "../deps.ts";
+
+const errorMiddleware = async (ctx: Context, next: () => any) => {
   try {
     await next();
   } catch (e) {
