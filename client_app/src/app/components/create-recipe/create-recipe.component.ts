@@ -1,7 +1,9 @@
 import { Component, OnInit, HostListener, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray }
   from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { SuccessSnackbarComponent } from '../success-snackbar/success-snackbar.component';
 
 @Component({
   selector: 'app-create-recipe',
@@ -10,7 +12,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class CreateRecipeComponent implements OnInit {
   maxRows = 0;
-  
+
   form = this.fb.group({
     "title": ["", Validators.required],
     "description": ["", Validators.required],
@@ -23,8 +25,11 @@ export class CreateRecipeComponent implements OnInit {
 
   @Output() formValidEvent = new EventEmitter<boolean>();
 
-  constructor(private fb: FormBuilder,
-    private recipeService: RecipeService) {
+  constructor(
+    private fb: FormBuilder,
+    private recipeService: RecipeService,
+    private _snackBar: MatSnackBar,
+  ) {
   }
 
   ngOnInit() {
@@ -78,17 +83,27 @@ export class CreateRecipeComponent implements OnInit {
 
       Object.keys(this.form.controls).forEach(controlName => {
         const control = this.form.get(controlName);
-    
+
         if (control instanceof FormArray) {
           control.controls.forEach(control => {
-              control.clearValidators();
-              control.updateValueAndValidity();
+            control.clearValidators();
+            control.updateValueAndValidity();
           });
         } else if (control) {
           control.clearValidators();
           control.updateValueAndValidity();
         }
+
+        this.openSuccessSnackBar();
       });
     }
   }
+
+  openSuccessSnackBar() {
+    this._snackBar.openFromComponent(SuccessSnackbarComponent, {
+      data: "Recipe successfully created!",
+      duration: 5 * 1000,
+    });
+  }
+
 }

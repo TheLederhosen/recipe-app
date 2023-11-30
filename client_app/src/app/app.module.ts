@@ -20,6 +20,8 @@ import { ViewRecipeComponent } from './components/view-recipe/view-recipe.compon
 import { CreateRecipeComponent } from './components/create-recipe/create-recipe.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { SearchRecipeComponent } from './components/search-recipe/search-recipe.component';
+import { SuccessSnackbarComponent } from './components/success-snackbar/success-snackbar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { SearchRecipeComponent } from './components/search-recipe/search-recipe.
     ViewRecipeComponent,
     CreateRecipeComponent,
     SearchRecipeComponent,
+    SuccessSnackbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { SearchRecipeComponent } from './components/search-recipe/search-recipe.
     FormsModule,
     MatFormFieldModule, 
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent],
