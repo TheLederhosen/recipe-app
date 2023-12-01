@@ -32,17 +32,13 @@ const viewRecipe = async (ctx: any) => {
   const recipe = await recipeService.findRecipeById(rId);
   const ingredients = await ingredientService.findAllIngredientsOfRecipe(rId);
 
-  ingredients.forEach((element: any) => {
-    delete element.id;
-  });
-
   if (recipe === -1) {
     ctx.response.redirect("/recipes");
     return;
   }
 
   const recipeDto: RecipeDto = {
-    id: -1,
+    id: recipe.id,
     userId: recipe.user_id,
     title: recipe.title,
     description: recipe.description,
@@ -57,12 +53,21 @@ const addRecipe = async (ctx: Context) => {
     recipeData,
     recipeValidationRules,
   );
+  
+  const recipe = await recipeService.findRecipeByUserIdAndTitle(1, recipeData.title);
+
+  if (recipe !== -1) {
+    console.error("Unique key constraint violation!");
+    ctx.response.status = 400;
+    ctx.response.body = "Recipe could not be created because a user can not have multiple recipes with the same name!";
+    return;
+  }
 
   if (!passes) {
-    console.log(errors);
-    const validationErrors = errors;
+    console.error(errors);
     ctx.response.status = 400; // Bad Request
-    // TODO: Validation
+    ctx.response.body = errors;
+    return;
   } else {
     await recipeService.addRecipe(
       1,
@@ -73,9 +78,9 @@ const addRecipe = async (ctx: Context) => {
     const recipe = await recipeService.findRecipeByUserIdAndTitle(1, recipeData.title);
 
     if (recipe === -1) {
-      console.log(errors);
-      const validationErrors = "Could not create recipe";
+      console.error("Could not create recipe. Please try again.");
       ctx.response.status = 400; // Bad Request
+      ctx.response.body = "Could not create recipe. Please try again.";
       return;
     }
 
@@ -90,5 +95,21 @@ const addRecipe = async (ctx: Context) => {
   }
 };
 
+const deleteRecipe = async (ctx: any) => {
+  const rId = ctx.params.rId
+  const recipe = await recipeService.findRecipeById(rId);
 
-export { viewRecipe, addRecipe, searchRecipe };
+  if (recipe === -1 || recipe.id != rId) {
+    console.error("Could not delete recipe. Please try again.");
+    ctx.response.status = 400; // Bad Request
+    ctx.response.body = "Could not delete recipe. Please try again.";
+    return;
+  }
+
+  await recipeService.deleteRecipe(rId);
+
+  ctx.response.status = 200; // OK
+};
+
+
+export { viewRecipe, addRecipe, searchRecipe, deleteRecipe };

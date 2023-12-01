@@ -5,6 +5,7 @@ const router = new Router();
 
 router.get("/recipes", recipeController.searchRecipe);
 router.get("/recipes/:rId", recipeController.viewRecipe);
+router.delete("/recipes/:rId", recipeController.deleteRecipe);
 router.post("/recipes", recipeController.addRecipe);
 
 export { router };

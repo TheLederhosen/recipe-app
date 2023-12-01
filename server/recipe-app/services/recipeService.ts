@@ -28,4 +28,12 @@ const searchForRecipes = async (searchTerm: string) => {
   return await sql`SELECT * FROM recipes WHERE UPPER(title) LIKE UPPER('%' || ${searchTerm} || '%')`;
 };
 
-export { addRecipe, findRecipeById, findRecipeByUserIdAndTitle, searchForRecipes };
+const deleteRecipe = async (recipeId: number) => {
+  await sql`DELETE FROM files WHERE recipe_id = ${recipeId}`;
+
+  await sql`DELETE FROM ingredients WHERE recipe_id = ${recipeId}`;
+
+  await sql`DELETE FROM recipes WHERE id = ${recipeId}`;
+};
+
+export { addRecipe, findRecipeById, findRecipeByUserIdAndTitle, searchForRecipes, deleteRecipe };
