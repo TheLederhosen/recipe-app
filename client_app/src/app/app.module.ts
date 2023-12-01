@@ -22,6 +22,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { SearchRecipeComponent } from './components/search-recipe/search-recipe.component';
 import { SuccessSnackbarComponent } from './components/success-snackbar/success-snackbar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     CreateRecipeComponent,
     SearchRecipeComponent,
     SuccessSnackbarComponent,
+    ErrorModalComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatFormFieldModule, 
     MatInputModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent],

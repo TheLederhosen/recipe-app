@@ -1,9 +1,11 @@
 import { Component, OnInit, HostListener, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray }
   from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { SuccessSnackbarComponent } from '../success-snackbar/success-snackbar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorModalComponent } from '../error-modal/error-modal.component';
 
 @Component({
   selector: 'app-create-recipe',
@@ -29,6 +31,7 @@ export class CreateRecipeComponent implements OnInit {
     private fb: FormBuilder,
     private recipeService: RecipeService,
     private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
   }
 
@@ -76,8 +79,13 @@ export class CreateRecipeComponent implements OnInit {
       const description = this.form.controls.description.value !== null ? this.form.controls.description.value : ""
       const ingredients = this.form.controls.ingredients.value.filter((item): item is string => item !== null);
 
-      this.recipeService.postRecipe(title, description, ingredients);
-      // TODO: Implement error handling
+      this.recipeService.postRecipe(title, description, ingredients).subscribe({
+        error: err => {
+          console.error(err);
+          this.openDialog(err.error)
+          return;
+        }
+      })
 
       this.form.reset({}, { emitEvent: false })
 
@@ -103,6 +111,13 @@ export class CreateRecipeComponent implements OnInit {
     this._snackBar.openFromComponent(SuccessSnackbarComponent, {
       data: "Recipe successfully created!",
       duration: 5 * 1000,
+    });
+  }
+
+  openDialog(errorMessage: string): void {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      data: errorMessage,
+      autoFocus: false
     });
   }
 
