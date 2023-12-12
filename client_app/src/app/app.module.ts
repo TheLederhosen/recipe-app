@@ -27,6 +27,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
 import { GlobalErrorHandler } from "./services/global-error-handler/global-error-handler.service";
+import { RegistrationComponent } from './components/registration/registration.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { GlobalErrorHandler } from "./services/global-error-handler/global-error
     ErrorModalComponent,
     ConfirmationModalComponent,
     EditRecipeComponent,
+    RegistrationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

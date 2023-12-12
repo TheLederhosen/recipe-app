@@ -1,0 +1,56 @@
+<div class="container">
+    <mat-card class="example-card">
+        <div class="headline">
+            <h1>Registration</h1>
+        </div>
+        <mat-card-content>
+            <mat-divider></mat-divider>
+            <form (ngSubmit)="createNewUser()" [formGroup]="registerForm">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-label>First Name</mat-label>
+                    <input aria-describedby="firstnameHelp" class="form-control" formControlName="firstname"
+                        id="inputFirstname" matInput name="firstname">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-label>Last Name</mat-label>
+                    <input aria-describedby="lastnameHelp" class="form-control" formControlName="lastname"
+                        id="inputLastname" matInput name="lastname">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-label>Email</mat-label>
+                    <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="inputEmail"
+                        matInput name="email">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-label>Password</mat-label>
+                    <input type="password" class="form-control" formControlName="password" id="password" matInput
+                        name="password">
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-label>Confirm Password</mat-label>
+                    <input type="password" class="form-control" formControlName="confirm" id="confirm" matInput
+                        name="confirm">
+                </mat-form-field>
+
+                <mat-divider></mat-divider>
+
+                <button type="submit" cdkFocusInitial color="primary" mat-flat-button class="submit-button"
+                    name="submit-button">Create Account
+                </button>
+
+                <mat-divider></mat-divider>
+                <div class="center">
+                    <span style="text-align: center">Already Registered?</span>
+                    <button type="button" color="primary" mat-flat-button routerLink="/login">Sign In</button>
+                </div>
+
+            </form>
+        </mat-card-content>
+
+    </mat-card>
+</div>

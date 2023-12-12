@@ -10,7 +10,7 @@ router.post("/auth/register", registrationController.registerUser);
 router.post("/auth/login", loginController.loginUser);
 
 router.get("/recipes", recipeController.searchRecipe);
-router.get("/recipes/:rId", authourised, recipeController.viewRecipe);
+router.get("/recipes/:rId", recipeController.viewRecipe);
 router.delete("/recipes/:rId", recipeController.deleteRecipe);
 router.post("/recipes", recipeController.addRecipe);
 router.post("/recipes/:rId", recipeController.updateRecipe);
