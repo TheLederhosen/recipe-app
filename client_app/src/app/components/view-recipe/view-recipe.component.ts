@@ -24,6 +24,8 @@ export class ViewRecipeComponent implements OnInit {
     ingredients: []
   };
 
+  isLoaded: boolean = false;
+
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
@@ -38,6 +40,7 @@ export class ViewRecipeComponent implements OnInit {
         .subscribe((recipe) => {
           console.log(recipe)
           this.recipe = recipe;
+          this.isLoaded = true;
         }))
 
   }

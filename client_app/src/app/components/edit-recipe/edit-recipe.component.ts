@@ -25,6 +25,8 @@ export class EditRecipeComponent {
     ingredients: []
   };
 
+  isLoaded: boolean = false;
+
   form: FormGroup = this.fb.group({
     "title": '',
     "description": '',
@@ -49,6 +51,7 @@ export class EditRecipeComponent {
         .subscribe((recipe) => {
           console.log(recipe)
           this.recipe = recipe;
+          this.isLoaded = true;
 
           this.form = this.fb.group({
             "title": [this.recipe.title, Validators.required],
