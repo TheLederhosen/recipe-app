@@ -3,10 +3,10 @@
     <mat-sidenav mode="side" opened disableClose>
       <div class="flex-container">
         <div class="button-container">
-          <button mat-fab color="primary" routerLink="/create" *ngIf="router.url !== '/create'">
+          <button mat-fab color="primary" routerLink="/create" *ngIf="!(router.url.startsWith('/create') || router.url.startsWith('/edit'))">
             <mat-icon>add</mat-icon>
           </button>
-          <button type="submit" form="createForm" id="form-button" mat-fab color="primary" *ngIf="router.url === '/create'" disabled="disabled">
+          <button type="submit" form="createEditForm" id="form-button" mat-fab color="primary" *ngIf="router.url.startsWith('/create') || router.url.startsWith('/edit')" disabled="disabled">
             <mat-icon>done</mat-icon>
           </button>
         </div>

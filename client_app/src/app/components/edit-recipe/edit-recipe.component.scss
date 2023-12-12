@@ -1,0 +1,99 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-card {
+    width: 70%;
+    height: 86%;   
+}
+
+mat-card-content {
+    padding-top: 16px;
+}
+
+.image-container {
+    height: 50%;
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+    background-color: rgb(210, 206, 206);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-icon {
+    font-size: 60px;
+    width: auto;
+    height: auto;
+}
+
+.half-container {
+    height: 50%;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-bottom: 16px;
+}
+
+.info-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.ing-container {
+    margin-top: 32px;
+    margin-right: 32px;
+    max-width: 25%;
+    margin-bottom: 32px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.title-container {
+    width: 40%;
+}
+
+.description-container {
+    flex: auto;
+}
+
+textarea {
+    resize: none;
+}
+
+.list-header {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    margin-top: 0%;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0%;
+    margin: 0%;
+}
+
+li {
+    margin-top: 8px;
+    margin-bottom: 0%;
+}
+
+.ing {
+    margin-bottom: 0%;
+    padding-bottom: 0%;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

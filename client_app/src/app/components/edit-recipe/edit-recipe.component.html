@@ -29,11 +29,11 @@
                         <div mat-subheader class="list-header">Ingredient List</div>
                         <mat-divider></mat-divider>
                         <div formArrayName="ingredients">
-                            <li *ngFor="let ingredient of form.controls.ingredients.controls; let i = index">
+                            <li *ngFor="let ingredient of ingredients.controls; let i = index">
                                 <mat-form-field subscriptSizing="dynamic" appearance="outline">
                                     <mat-label>Ingredient</mat-label>
                                     <input type="text" matInput formControlName="{{i}}">
-                                    <button matSuffix mat-icon-button aria-label="Clear" (click)="removeIngredientItem(i)" [disabled]="form.controls.ingredients.controls.length === 1 ? true : null">
+                                    <button matSuffix mat-icon-button aria-label="Clear" (click)="removeIngredientItem(i)" [disabled]="ingredients.controls.length === 1 ? true : null">
                                         <mat-icon>delete_24px</mat-icon>
                                     </button>
                                 </mat-form-field>

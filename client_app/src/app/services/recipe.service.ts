@@ -26,6 +26,16 @@ export class RecipeService {
     return this.http.post<CreateRecipeDto>(`${this.recipesBaseUri}`, recipe);
   }
 
+  updateRecipe(recipeId: Number, title: string, description: string, ingredients: string[]) {
+    const recipe = {
+      title,
+      description,
+      ingredients
+    } as CreateRecipeDto;
+
+    return this.http.post<CreateRecipeDto>(`${this.recipesBaseUri}/${recipeId}`, recipe);
+  }
+
   searchRecipe(seachTerm: string): Observable<RecipeDto[]> {
     const params = new HttpParams()
       .set('searchTerm', seachTerm)

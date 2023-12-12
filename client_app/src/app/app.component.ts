@@ -1,9 +1,5 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { RecipeService } from './services/recipe.service';
-import { RecipeDto } from './global/recipe-dto'
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateRecipeComponent } from './components/create-recipe/create-recipe.component';
-import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-root',

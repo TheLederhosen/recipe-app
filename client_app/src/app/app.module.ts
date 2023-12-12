@@ -25,6 +25,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
+import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
     SuccessSnackbarComponent,
     ErrorModalComponent,
     ConfirmationModalComponent,
+    EditRecipeComponent,
   ],
   imports: [
     BrowserModule,

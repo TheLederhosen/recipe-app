@@ -25,7 +25,7 @@
             </mat-card>
         </div>
         <mat-card-actions>
-            <button mat-button disabled="">Edit</button>
+            <button mat-button routerLink="/edit/{{recipe.id}}">Edit</button>
             <button mat-button (click)="deleteRecipe()">Delete</button>
           </mat-card-actions>
     </mat-card>
