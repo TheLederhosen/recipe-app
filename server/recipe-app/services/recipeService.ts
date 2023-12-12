@@ -36,4 +36,8 @@ const deleteRecipe = async (recipeId: number) => {
   await sql`DELETE FROM recipes WHERE id = ${recipeId}`;
 };
 
-export { addRecipe, findRecipeById, findRecipeByUserIdAndTitle, searchForRecipes, deleteRecipe };
+const updateRecipeById = async (id: number, title: string, description: string) => {
+  await sql`UPDATE recipes SET title = ${title}, description = ${description} WHERE id = ${id}`;
+};
+
+export { addRecipe, findRecipeById, findRecipeByUserIdAndTitle, searchForRecipes, deleteRecipe, updateRecipeById };

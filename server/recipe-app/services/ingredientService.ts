@@ -8,4 +8,8 @@ const findAllIngredientsOfRecipe = async (recipeId: number) => {
   return await sql`SELECT * FROM ingredients WHERE recipe_id = ${recipeId}`;
 };
 
-export { findAllIngredientsOfRecipe, addIngredient };
+const deleteIngredientsOfRecipeById = async (recipeId: number) => {
+  return await sql`DELETE FROM ingredients WHERE recipe_id = ${recipeId}`;
+};
+
+export { findAllIngredientsOfRecipe, addIngredient, deleteIngredientsOfRecipeById };

@@ -111,5 +111,47 @@ const deleteRecipe = async (ctx: any) => {
   ctx.response.status = 200; // OK
 };
 
+const updateRecipe = async (ctx: any) => {
+  const rId = ctx.params.rId;
+  const recipeData = await getRecipeData(ctx);
+  const [passes, errors] = await validasaur.validate(
+    recipeData,
+    recipeValidationRules,
+  );
+  
+  const recipe = await recipeService.findRecipeById(rId);
 
-export { viewRecipe, addRecipe, searchRecipe, deleteRecipe };
+  if (recipe === -1) {
+    console.error("Update failed, Recipe not found!");
+    ctx.response.status = 400;
+    ctx.response.body = "Recipe could not be updated because it could not be found!";
+    return;
+  }
+
+  if (!passes) {
+    console.error(errors);
+    ctx.response.status = 400; // Bad Request
+    ctx.response.body = errors;
+    return;
+  } else {
+    await recipeService.updateRecipeById(
+      recipe.id,
+      recipeData.title,
+      recipeData.description
+    );
+
+    await ingredientService.deleteIngredientsOfRecipeById(recipe.id);
+
+    recipeData.ingredients.forEach(async (name: any) => {
+      await ingredientService.addIngredient(
+        recipe.id,
+        name
+        )
+    })
+
+    ctx.response.status = 200; // OK
+  }
+};
+
+
+export { viewRecipe, addRecipe, searchRecipe, deleteRecipe, updateRecipe };
