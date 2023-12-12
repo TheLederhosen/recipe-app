@@ -80,29 +80,25 @@ export class CreateRecipeComponent implements OnInit {
       const ingredients = this.form.controls.ingredients.value.filter((item): item is string => item !== null);
 
       this.recipeService.postRecipe(title, description, ingredients).subscribe({
-        error: err => {
-          console.error(err);
-          this.openDialog(err.error)
-          return;
-        }
-      })
+        next: () => {
+          this.form.reset({}, { emitEvent: false });
 
-      this.form.reset({}, { emitEvent: false })
+          Object.keys(this.form.controls).forEach(controlName => {
+            const control = this.form.get(controlName);
 
-      Object.keys(this.form.controls).forEach(controlName => {
-        const control = this.form.get(controlName);
-
-        if (control instanceof FormArray) {
-          control.controls.forEach(control => {
-            control.clearValidators();
-            control.updateValueAndValidity();
+            if (control instanceof FormArray) {
+              control.controls.forEach(control => {
+                control.clearValidators();
+                control.updateValueAndValidity();
+              });
+            } else if (control) {
+              control.clearValidators();
+              control.updateValueAndValidity();
+            }
           });
-        } else if (control) {
-          control.clearValidators();
-          control.updateValueAndValidity();
-        }
 
-        this.openSuccessSnackBar();
+          this.openSuccessSnackBar();
+        }
       });
     }
   }
@@ -113,12 +109,4 @@ export class CreateRecipeComponent implements OnInit {
       duration: 5 * 1000,
     });
   }
-
-  openDialog(errorMessage: string): void {
-    const dialogRef = this.dialog.open(ErrorModalComponent, {
-      data: errorMessage,
-      autoFocus: false
-    });
-  }
-
 }

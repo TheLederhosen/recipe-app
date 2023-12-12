@@ -135,19 +135,15 @@ export class EditRecipeComponent {
 
       if (this.isDifferent(title, description, ingredients)) {
         this.recipeService.updateRecipe(this.recipe.id, title, description, ingredients).subscribe({
-          next: data => {
+          next: () => {
             this.openSuccessSnackBar("Recipe successfully updated!");
-          },
-          error: err => {
-            this.openDialog(err.error)
-            return;
+            this.router.navigate([`/view/${this.recipe.id}`]);
           }
         })
       } else {
         this.openSuccessSnackBar("Nothing changed!");
+        this.router.navigate([`/view/${this.recipe.id}`]);
       }
-
-      this.router.navigate([`/view/${this.recipe.id}`]);
     }
   }
 
@@ -155,13 +151,6 @@ export class EditRecipeComponent {
     this._snackBar.openFromComponent(SuccessSnackbarComponent, {
       data: message,
       duration: 5 * 1000,
-    });
-  }
-
-  openDialog(errorMessage: string): void {
-    const dialogRef = this.dialog.open(ErrorModalComponent, {
-      data: errorMessage,
-      autoFocus: false
     });
   }
 }

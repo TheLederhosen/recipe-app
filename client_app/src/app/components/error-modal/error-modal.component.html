@@ -1,6 +1,12 @@
-<h1 mat-dialog-title>Oops, something has gone wrong!</h1>
+<h1 mat-dialog-title>An error has occurred!</h1>
 <div mat-dialog-content>
-  <p>{{data}}</p>
+  <p *ngIf="data.status">
+    <b>Status Code: {{ data.status }}</b>
+  </p>
+  <p>Something went wrong!</p>
+  <p class="error-message">
+    {{ data.message }}
+  </p>
 </div>
 <div mat-dialog-actions align="end">
   <button mat-stroked-button color="warn" (click)="close()">Dismiss</button>

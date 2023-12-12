@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { ErrorHandler, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
@@ -26,6 +26,7 @@ import { ErrorModalComponent } from './components/error-modal/error-modal.compon
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
+import { GlobalErrorHandler } from "./services/global-error-handler/global-error-handler.service";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
     MatSnackBarModule,
     MatDialogModule
   ],
-  providers: [RecipeService],
+  providers: [RecipeService,{ provide: ErrorHandler, useClass:GlobalErrorHandler}],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
