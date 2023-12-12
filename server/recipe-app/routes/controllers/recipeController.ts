@@ -1,8 +1,7 @@
 import * as recipeService from "../../services/recipeService.ts";
 import * as ingredientService from "../../services/ingredientService.ts";
 import { RecipeDto } from "../../global/recipe-dto.ts";
-import { validasaur } from "../../deps.ts";
-import { Context, RouterContext } from "https://deno.land/x/oak@v11.1.0/mod.ts";
+import { validasaur, Context } from "../../deps.ts";
 
 const recipeValidationRules = {
   title: [validasaur.required, validasaur.minLength(1)],
@@ -33,7 +32,8 @@ const viewRecipe = async (ctx: any) => {
   const ingredients = await ingredientService.findAllIngredientsOfRecipe(rId);
 
   if (recipe === -1) {
-    ctx.response.redirect("/recipes");
+    ctx.response.status = 400;
+    ctx.response.body = "Recipe could not be found!";
     return;
   }
 
@@ -44,6 +44,7 @@ const viewRecipe = async (ctx: any) => {
     description: recipe.description,
     ingredients: ingredients
   };
+
   ctx.response.body = recipeDto;
 };
 
