@@ -128,6 +128,15 @@ const updateRecipe = async (ctx: any) => {
     return;
   }
 
+  const recipe_duplicate = await recipeService.findRecipeByUserIdAndTitle(1, recipeData.title);
+
+  if (recipe_duplicate !== -1) {
+    console.error("Unique key constraint violation!");
+    ctx.response.status = 400;
+    ctx.response.body = "Recipe could not be created because a user can not have multiple recipes with the same name!";
+    return;
+  }
+
   if (!passes) {
     console.error(errors);
     ctx.response.status = 400; // Bad Request
