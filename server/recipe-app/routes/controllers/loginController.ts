@@ -1,4 +1,4 @@
-import { bcrypt, create } from "../../deps.ts";
+import { bcrypt, create, getNumericDate } from "../../deps.ts";
 import * as userService from "../../services/userService.ts";
 import { Context } from "../../deps.ts";
 import { key } from "../../global/backend-api-key.ts";
@@ -34,10 +34,11 @@ export const loginUser = async (ctx: Context) => {
     //authenticate a user
     const payload = {
         id: user.id,
-        email: user.password
+        email: user.password,
+        exp: getNumericDate(60 * 60 * 3)
     };
     
-    const jwt = await create({ alg: "HS512", typ: "JWT" }, { payload }, key);
+    const jwt = await create({ alg: "HS512", typ: "JWT" }, payload, key);
 
     if (jwt) {
         ctx.response.status = 200;
@@ -45,6 +46,7 @@ export const loginUser = async (ctx: Context) => {
             userId: user.id,
             email: user.email,
             token: jwt,
+            expDate: payload.exp
         }
     } else {
         ctx.response.status = 500;

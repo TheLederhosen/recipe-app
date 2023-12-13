@@ -42,7 +42,7 @@ const registerUser = async (ctx: Context) => {
         );
 
         ctx.response.status = 201;
-        ctx.response.body = "User created";
+        ctx.response.body = {message: "User created", user:userData.email}
     }
 };
 

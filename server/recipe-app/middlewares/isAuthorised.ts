@@ -8,12 +8,14 @@ export const authourised = async (ctx: Context, next: any) => {
 
         if (!authorization) {
             ctx.response.status = 401;
+            ctx.response.body = "You are not authorized to access this route"
             return;
         }
         const jwt = authorization.split(' ')[1];
 
         if (!jwt) {
             ctx.response.status = 401;
+            ctx.response.body = "You are not authorized to access this route"
             return;
         }
 
