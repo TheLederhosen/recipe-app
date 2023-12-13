@@ -34,7 +34,7 @@ export const loginUser = async (ctx: Context) => {
     //authenticate a user
     const payload = {
         id: user.id,
-        email: user.password,
+        email: user.email,
         exp: getNumericDate(60 * 60 * 3)
     };
     
@@ -43,8 +43,6 @@ export const loginUser = async (ctx: Context) => {
     if (jwt) {
         ctx.response.status = 200;
         ctx.response.body = {
-            userId: user.id,
-            email: user.email,
             token: jwt,
             expDate: payload.exp
         }

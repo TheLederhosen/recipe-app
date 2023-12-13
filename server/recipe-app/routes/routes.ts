@@ -11,8 +11,8 @@ router.post("/auth/login", loginController.loginUser);
 
 router.get("/recipes", recipeController.searchRecipe);
 router.get("/recipes/:rId", recipeController.viewRecipe);
-router.delete("/recipes/:rId", recipeController.deleteRecipe);
-router.post("/recipes", recipeController.addRecipe);
-router.post("/recipes/:rId", recipeController.updateRecipe);
+router.delete("/recipes/:rId", authourised, recipeController.deleteRecipe);
+router.post("/recipes", authourised, recipeController.addRecipe);
+router.post("/recipes/:rId", authourised, recipeController.updateRecipe);
 
 export { router };

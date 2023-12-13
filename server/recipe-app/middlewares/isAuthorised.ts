@@ -1,5 +1,6 @@
 import { verify, Context } from "../deps.ts";
 import { key } from "../global/backend-api-key.ts";
+import * as userService from "../services/userService.ts";
 
 export const authourised = async (ctx: Context, next: any) => {
     try {
@@ -20,14 +21,19 @@ export const authourised = async (ctx: Context, next: any) => {
         }
 
         const payload = await verify(jwt, key);
+        console.log(payload)
 
         if (!payload) {
             throw new Error("!payload")
         }
+        
+        const user = await userService.findUserByEmail(payload.email);
+        ctx.state.user = user;
 
         await next();
 
     } catch (_error) {
+        console.log(_error)
         ctx.response.status = 401;
         ctx.response.body = "You are not authorized to access this route"
     }
