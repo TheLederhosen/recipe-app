@@ -10,6 +10,7 @@ import { ConfirmationDialogDto } from 'src/app/global/confirmation-dialog-dto';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { UserDto } from 'src/app/global/user-dto';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-view-recipe',
@@ -31,6 +32,7 @@ export class ViewRecipeComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -40,10 +42,23 @@ export class ViewRecipeComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params) => this.recipeService.getRecipebyId(params["id"])
-      .subscribe((recipe) => {
-        this.recipe = recipe;
-        this.isLoaded = true;
-      }))
+        .subscribe((recipe) => {
+          console.log(recipe)
+          this.recipe = recipe;
+          this.isLoaded = true;
+        }))
+  }
+
+  canEdit() {
+    if (this.authService.isLoggedIn()) {
+      if (this.authService.isAdmin()) {
+        return true;
+      } else if (this.recipe.userId == this.authService.getId()) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   deleteRecipe() {
@@ -63,11 +78,6 @@ export class ViewRecipeComponent implements OnInit {
           next: res => {
             this.openSuccessSnackBar();
             this.router.navigate(['']);
-          }, 
-          error: err => {
-            console.error(err);
-            this.openDialog(err.error);
-            return;
           }
         })
       }

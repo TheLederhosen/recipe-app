@@ -21,7 +21,7 @@ export class UserService {
       password
     } as CreateUserDto
 
-    return this.http.post<CreateUserDto>(`${this.usersBaseUri}auth/register`, user);
+    return this.http.post<CreateUserDto>(`${this.usersBaseUri}`, user);
   }
 
   getUserById(id: number): Observable<UserDto> {

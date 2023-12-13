@@ -21,10 +21,10 @@ export class AuthService {
     // we still need to handle the reception of the token
   }
 
-  private setSession(authResult: { userId: string; email: string; token: string; expDate: string; }) {
-    console.log(authResult)
-    localStorage.setItem('id', authResult.userId);
+  private setSession(authResult: { id: string; email: string; admin: string; token: string; expDate: string; }) {
+    localStorage.setItem('id', authResult.id);
     localStorage.setItem('email', authResult.email);
+    localStorage.setItem('admin', authResult.admin);
     localStorage.setItem('token', authResult.token);
     localStorage.setItem("expires_at", authResult.expDate);
   }
@@ -32,6 +32,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('id');
     localStorage.removeItem('email');
+    localStorage.removeItem('admin');
     localStorage.removeItem('token');
     localStorage.removeItem("expires_at");
   }
@@ -40,17 +41,19 @@ export class AuthService {
     return new Date().getUTCSeconds() < this.getExpiration();
   }
 
+  isAdmin() {
+    return String(localStorage.getItem('admin')).toLowerCase() === 'true';
+  }
+
+  getId() {
+    return Number(localStorage.getItem('id'));
+  }
+
   isLoggedOut() {
     return !this.isLoggedIn();
   }
 
   getExpiration() {
-    const expiration = localStorage.getItem("expires_at");
-    if (expiration === null) {
-      return 0;
-    } else {
-      const expiresAt = JSON.parse(expiration);
-      return Number(expiresAt);
-    }
+    return Number(localStorage.getItem('expires_at'));
   }
 }

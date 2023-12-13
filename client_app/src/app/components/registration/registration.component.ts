@@ -43,7 +43,7 @@ export class RegistrationComponent {
 
       this.userService.createUser(firstName, lastName, email, password).subscribe({
         next: () => {
-          this.router.navigate(['']);
+          this.router.navigate(['/login']);
           this.openSuccessSnackBar();
         }
       });
