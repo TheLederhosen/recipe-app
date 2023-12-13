@@ -14,4 +14,14 @@ const findUserByEmail = async (email: string) => {
     }
 };
 
-export { addUser, findUserByEmail }
+const findUserById = async (userId: number) => {
+    const rows = await sql`SELECT * FROM users WHERE id = ${userId}`;
+
+    if (rows.length != 1) {
+        return -1;
+    } else {
+        return rows[0];
+    }
+};
+
+export { addUser, findUserByEmail, findUserById }

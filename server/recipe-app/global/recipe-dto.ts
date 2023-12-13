@@ -3,6 +3,7 @@ import { IngredientsDto } from "./ingredients-dto.ts";
 export interface RecipeDto {
     id: number
     userId: number;
+    userName: string;
     title: string;
     description: string;
     ingredients: IngredientsDto[];

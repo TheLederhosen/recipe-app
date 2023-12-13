@@ -1,5 +1,6 @@
 import * as recipeService from "../../services/recipeService.ts";
 import * as ingredientService from "../../services/ingredientService.ts";
+import * as userService from "../../services/userService.ts";
 import { RecipeDto } from "../../global/recipe-dto.ts";
 import { validasaur, Context } from "../../deps.ts";
 
@@ -23,7 +24,24 @@ const getRecipeData = async (ctx: Context) => {
 const searchRecipe = async (ctx: Context) => {
   const searchTerm = ctx.request.url.searchParams.get("searchTerm");
   const recipes = await recipeService.searchForRecipes(searchTerm || "");
-  ctx.response.body = recipes;
+  const recipeDtos: RecipeDto[] = [];
+
+  for (let i = 0; i < recipes.length; i++) {
+    const user = await userService.findUserById(recipes[i].user_id);
+
+    const recipeDto: RecipeDto = {
+      id: recipes[i].id,
+      userId: recipes[i].user_id,
+      userName: `${user.first_name} ${user.last_name}`,
+      title: recipes[i].title,
+      description: recipes[i].description,
+      ingredients: []
+    };
+
+    recipeDtos.push(recipeDto);
+  }
+
+  ctx.response.body = recipeDtos;
 };
 
 const viewRecipe = async (ctx: any) => {
@@ -37,9 +55,12 @@ const viewRecipe = async (ctx: any) => {
     return;
   }
 
+  const user = await userService.findUserById(recipe.user_id);
+
   const recipeDto: RecipeDto = {
     id: recipe.id,
     userId: recipe.user_id,
+    userName: `${user.first_name} ${user.last_name}`,
     title: recipe.title,
     description: recipe.description,
     ingredients: ingredients

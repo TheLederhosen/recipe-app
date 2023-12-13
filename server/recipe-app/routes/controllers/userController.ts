@@ -1,6 +1,7 @@
 import { bcrypt } from "../../deps.ts";
 import * as userService from "../../services/userService.ts";
 import { validasaur, Context } from "../../deps.ts";
+import { UserDto } from "../../global/user-dto.ts";
 
 const userValidationRules = {
     email: [validasaur.required, validasaur.isEmail],
@@ -46,4 +47,24 @@ const registerUser = async (ctx: Context) => {
     }
 };
 
-export { registerUser };
+const viewUser = async (ctx: any) => {
+    const uId = ctx.params.uId
+    const user = await userService.findUserById(uId);
+  
+    if (user === -1) {
+      ctx.response.status = 400;
+      ctx.response.body = "User could not be found!";
+      return;
+    }
+  
+    const userDto: UserDto = {
+        id: user.id,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        email: user.email
+    }
+  
+    ctx.response.body = userDto;
+  };
+
+export { registerUser, viewUser };
