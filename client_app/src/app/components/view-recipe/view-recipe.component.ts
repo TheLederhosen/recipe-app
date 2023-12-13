@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackbarComponent } from '../success-snackbar/success-snackbar.component';
 import { ErrorModalComponent } from '../error-modal/error-modal.component';
-import { ConfirmationDialogDto } from 'src/app/global/confirmationDialogDto';
+import { ConfirmationDialogDto } from 'src/app/global/confirmation-dialog-dto';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({

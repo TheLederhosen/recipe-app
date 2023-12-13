@@ -36,11 +36,17 @@
             <p class="mat-small">Ingredients</p>
           </div>
         </div>
-        <div class="profile">
+        <div class="profile" *ngIf="authService.isLoggedOut()">
           <button mat-icon-button color="accent" routerLink="/login">
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon>login</mat-icon>
           </button>
-          <p class="mat-small">Account</p>
+          <p class="mat-small">Login</p>
+        </div>
+        <div class="profile" *ngIf="authService.isLoggedIn()">
+          <button mat-icon-button color="accent" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+          </button>
+          <p class="mat-small">Logout</p>
         </div>
       </div>
     </mat-sidenav>

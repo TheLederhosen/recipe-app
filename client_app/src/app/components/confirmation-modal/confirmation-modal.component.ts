@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmationDialogDto } from 'src/app/global/confirmationDialogDto';
+import { ConfirmationDialogDto } from 'src/app/global/confirmation-dialog-dto';
 
 @Component({
   selector: 'app-confirmation-modal',
