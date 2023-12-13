@@ -29,7 +29,7 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <mat-card-actions *ngIf="canEdit()">
+        <mat-card-actions *ngIf="authService.canEdit(recipe.id)">
             <button mat-button routerLink="/edit/{{recipe.id}}">Edit</button>
             <button mat-button (click)="deleteRecipe()">Delete</button>
           </mat-card-actions>

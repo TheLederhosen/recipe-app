@@ -3,7 +3,10 @@
     <mat-sidenav mode="side" opened disableClose>
       <div class="flex-container">
         <div class="button-container">
-          <button mat-fab color="primary" routerLink="/create" *ngIf="!(router.url.startsWith('/create') || router.url.startsWith('/edit'))">
+          <button mat-fab color="primary" routerLink="/create" *ngIf="!(router.url.startsWith('/create') || router.url.startsWith('/edit')) && authService.isLoggedOut()" disabled>
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-fab color="primary" routerLink="/create" *ngIf="!(router.url.startsWith('/create') || router.url.startsWith('/edit')) && authService.isLoggedIn()">
             <mat-icon>add</mat-icon>
           </button>
           <button type="submit" form="createEditForm" id="form-button" mat-fab color="primary" *ngIf="router.url.startsWith('/create') || router.url.startsWith('/edit')" disabled="disabled">
@@ -12,7 +15,7 @@
         </div>
         <div class="items">
           <div class="item">
-            <button mat-icon-button color="accent" routerLink="">
+            <button mat-icon-button color="accent" routerLink="" disabled="true">
               <mat-icon fontSet="material-symbols-outlined">home</mat-icon>
             </button>
             <p class="mat-small">Home</p>
@@ -43,6 +46,8 @@
           <p class="mat-small">Login</p>
         </div>
         <div class="profile" *ngIf="authService.isLoggedIn()">
+          <mat-icon color="accent">account_circle</mat-icon>
+          <p class="mat-small">Account</p>
           <button mat-icon-button color="accent" (click)="logout()">
             <mat-icon>logout</mat-icon>
           </button>

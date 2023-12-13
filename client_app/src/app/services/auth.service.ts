@@ -49,11 +49,27 @@ export class AuthService {
     return Number(localStorage.getItem('id'));
   }
 
+  getEmail() {
+    return localStorage.getItem('email');
+  }
+
   isLoggedOut() {
     return !this.isLoggedIn();
   }
 
   getExpiration() {
     return Number(localStorage.getItem('expires_at'));
+  }
+
+  canEdit(userId: number) {
+    if (this.isLoggedIn()) {
+      if (this.isAdmin()) {
+        return true;
+      } else if (userId == this.getId()) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

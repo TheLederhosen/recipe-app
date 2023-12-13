@@ -7,12 +7,14 @@ import { SearchRecipeComponent } from "./components/search-recipe/search-recipe.
 import { EditRecipeComponent } from "./components/edit-recipe/edit-recipe.component";
 import { RegistrationComponent } from "./components/registration/registration.component";
 import { LoginComponent } from "./components/login/login.component";
+import { editDeleteRecipeGuard } from "./global/route-guards/edit-delete-recipe.guard";
+import { loginGuard } from "./global/route-guards/login.guard";
 
 const routes: Routes = [
   { path: "", component: OverviewComponent },
   { path: "view/:id", component: ViewRecipeComponent },
-  { path: "edit/:id", component: EditRecipeComponent },
-  { path: "create", component: CreateRecipeComponent },
+  { path: "edit/:id", component: EditRecipeComponent, canActivate: [editDeleteRecipeGuard] },
+  { path: "create", component: CreateRecipeComponent, canActivate: [loginGuard] },
   { path: "search", component: SearchRecipeComponent },
   { path: "register", component: RegistrationComponent },
   { path: "login", component: LoginComponent },

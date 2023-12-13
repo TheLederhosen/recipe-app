@@ -32,7 +32,7 @@ export class ViewRecipeComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private authService: AuthService,
+    public authService: AuthService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -47,18 +47,6 @@ export class ViewRecipeComponent implements OnInit {
           this.recipe = recipe;
           this.isLoaded = true;
         }))
-  }
-
-  canEdit() {
-    if (this.authService.isLoggedIn()) {
-      if (this.authService.isAdmin()) {
-        return true;
-      } else if (this.recipe.userId == this.authService.getId()) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   deleteRecipe() {

@@ -1,6 +1,6 @@
 import { ErrorHandler, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { HTTP_INTERCEPTORS, HttpClientModule, HttpInterceptor } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from "./app.component";
@@ -26,10 +26,10 @@ import { ErrorModalComponent } from './components/error-modal/error-modal.compon
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
-import { GlobalErrorHandler } from "./services/global-error-handler/global-error-handler.service";
+import { GlobalErrorHandler } from "./global/global-error-handler/global-error-handler.service";
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
-import { GlobalAuthIntercepterService } from "./services/global-auth-intercepter/global-auth-intercepter.service";
+import { GlobalAuthIntercepterService } from "./global/global-auth-intercepter/global-auth-intercepter.service";
 
 @NgModule({
   declarations: [
