@@ -21,7 +21,6 @@ export const authourised = async (ctx: Context, next: any) => {
         }
 
         const payload = await verify(jwt, key);
-        console.log(payload)
 
         if (!payload) {
             throw new Error("!payload")

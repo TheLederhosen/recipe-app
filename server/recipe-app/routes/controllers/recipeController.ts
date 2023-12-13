@@ -128,7 +128,7 @@ const deleteRecipe = async (ctx: any) => {
     return;
   }
 
-  if (recipe.user_id != ctx.state.user.id) {
+  if ((recipe.user_id != ctx.state.user.id) && !ctx.state.user.admin) {
     console.error("Not authorised to delete recipe.");
     ctx.response.status = 401; // Bad Request
     ctx.response.body = "Not authorised to delete this recipe!";
@@ -166,10 +166,10 @@ const updateRecipe = async (ctx: any) => {
     return;
   }
 
-  if (recipe.user_id != ctx.state.user.id) {
-    console.error("Not authorised to delete recipe.");
+  if ((recipe.user_id != ctx.state.user.id) && !ctx.state.user.admin) {
+    console.error("Not authorised to update recipe.");
     ctx.response.status = 401; // Bad Request
-    ctx.response.body = "Not authorised to delete this recipe!";
+    ctx.response.body = "Not authorised to update this recipe!";
     return;
   }
 

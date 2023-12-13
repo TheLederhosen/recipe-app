@@ -1,7 +1,7 @@
 import { sql } from "../database/database.ts";
 
-const addUser = async (email: string, passwordHash: string) => {
-    await sql`INSERT INTO users (email, password) VALUES (${email}, ${passwordHash})`;
+const addUser = async (firstName: string, lastName: string, email: string, passwordHash: string) => {
+    await sql`INSERT INTO users (first_name, last_name, email, password) VALUES (${firstName}, ${lastName}, ${email}, ${passwordHash})`;
 };
 
 const findUserByEmail = async (email: string) => {

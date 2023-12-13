@@ -43,6 +43,9 @@ export const loginUser = async (ctx: Context) => {
     if (jwt) {
         ctx.response.status = 200;
         ctx.response.body = {
+            id: user.id,
+            email: user.email,
+            admin: user.admin,
             token: jwt,
             expDate: payload.exp
         }

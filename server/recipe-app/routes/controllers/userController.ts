@@ -12,6 +12,8 @@ const getUserData = async (ctx: Context) => {
     const body = ctx.request.body({ type: "json" });
     const jsonBody = await body.value;
     return {
+        firstName: jsonBody.firstName,
+        lastName: jsonBody.lastName,
         email: jsonBody.email,
         password: jsonBody.password
     };
@@ -38,33 +40,35 @@ const registerUser = async (ctx: Context) => {
     } else {
         const hashedPassword = await bcrypt.hash(userData.password);
         await userService.addUser(
+            userData.firstName,
+            userData.lastName,
             userData.email,
             hashedPassword,
         );
 
         ctx.response.status = 201;
-        ctx.response.body = {message: "User created", user:userData.email}
+        ctx.response.body = { message: "User created", user: userData.email }
     }
 };
 
 const viewUser = async (ctx: any) => {
     const uId = ctx.params.uId
     const user = await userService.findUserById(uId);
-  
+
     if (user === -1) {
-      ctx.response.status = 400;
-      ctx.response.body = "User could not be found!";
-      return;
+        ctx.response.status = 400;
+        ctx.response.body = "User could not be found!";
+        return;
     }
-  
+
     const userDto: UserDto = {
         id: user.id,
         firstName: user.first_name,
         lastName: user.last_name,
         email: user.email
     }
-  
+
     ctx.response.body = userDto;
-  };
+};
 
 export { registerUser, viewUser };
