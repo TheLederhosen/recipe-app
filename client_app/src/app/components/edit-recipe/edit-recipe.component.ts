@@ -20,6 +20,7 @@ export class EditRecipeComponent {
   recipe: RecipeDto = {
     id: 0,
     userId: 0,
+    userName: "",
     title: "",
     description: "",
     ingredients: []

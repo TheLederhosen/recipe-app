@@ -1,6 +1,13 @@
-export interface UserDto {
+export interface LoginUserDto {
     email: string;
     password: string;
+};
+
+export interface UserDto {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
 };
 
 export interface CreateUserDto {

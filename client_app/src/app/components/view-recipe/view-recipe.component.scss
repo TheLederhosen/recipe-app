@@ -8,7 +8,12 @@
 
 .example-card {
     width: 70%;
-    max-height: 86%;   
+    max-height: 86%;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
 }
 
 mat-card-content {
@@ -17,7 +22,6 @@ mat-card-content {
 
 .image-container {
     overflow: hidden;
-    border-radius: 4px 4px 0 0;
     background-color: rgb(210, 206, 206);
     display: flex;
     justify-content: center;

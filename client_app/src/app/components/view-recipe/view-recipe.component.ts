@@ -8,6 +8,8 @@ import { SuccessSnackbarComponent } from '../success-snackbar/success-snackbar.c
 import { ErrorModalComponent } from '../error-modal/error-modal.component';
 import { ConfirmationDialogDto } from 'src/app/global/confirmation-dialog-dto';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { UserDto } from 'src/app/global/user-dto';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-view-recipe',
@@ -19,6 +21,7 @@ export class ViewRecipeComponent implements OnInit {
   recipe: RecipeDto = {
     id: 0,
     userId: 0,
+    userName: "",
     title: "",
     description: "",
     ingredients: []
@@ -37,12 +40,10 @@ export class ViewRecipeComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params) => this.recipeService.getRecipebyId(params["id"])
-        .subscribe((recipe) => {
-          console.log(recipe)
-          this.recipe = recipe;
-          this.isLoaded = true;
-        }))
-
+      .subscribe((recipe) => {
+        this.recipe = recipe;
+        this.isLoaded = true;
+      }))
   }
 
   deleteRecipe() {

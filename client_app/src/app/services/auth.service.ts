@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Globals } from '../global/globals';
-import { UserDto } from '../global/user-dto';
 import { shareReplay, tap } from 'rxjs/operators';
 
 @Injectable({
