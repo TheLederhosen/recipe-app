@@ -10,34 +10,43 @@
                     <mat-label>First Name</mat-label>
                     <input aria-describedby="firstnameHelp" class="form-control" formControlName="firstname"
                         id="inputFirstname" matInput name="firstname">
+                    <mat-error *ngIf="registerForm.controls['firstname'].invalid">{{getErrorMessage('firstname', "First
+                        name")}}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Last Name</mat-label>
                     <input aria-describedby="lastnameHelp" class="form-control" formControlName="lastname"
                         id="inputLastname" matInput name="lastname">
+                    <mat-error *ngIf="registerForm.controls['lastname'].invalid">{{getErrorMessage('lastname', "Last
+                        name")}}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Email</mat-label>
                     <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="inputEmail"
                         matInput name="email">
+                    <mat-error *ngIf="registerForm.controls['email'].invalid">{{getErrorMessage('email',
+                        "Email")}}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Password</mat-label>
                     <input type="password" class="form-control" formControlName="password" id="password" matInput
                         name="password">
+                    <mat-error *ngIf="registerForm.controls['password'].invalid">{{getErrorMessage('password',
+                        "Password")}}</mat-error>
                 </mat-form-field>
 
 
                 <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Confirm Password</mat-label>
-                    <input type="password" class="form-control" formControlName="confirm" id="confirm" matInput
-                        name="confirm">
+                    <input type="password" class="form-control" formControlName="passwordConfirm" id="passwordConfirm"
+                        matInput name="passwordConfirm">
+                    <mat-error *ngIf="registerForm.controls['passwordConfirm'].invalid">
+                        {{getErrorMessage('passwordConfirm', "Password")}}
+                    </mat-error>
                 </mat-form-field>
-
-                <mat-divider></mat-divider>
 
                 <button type="submit" cdkFocusInitial color="primary" mat-flat-button class="submit-button"
                     name="submit-button">Create Account
