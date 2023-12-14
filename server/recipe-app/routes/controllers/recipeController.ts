@@ -5,10 +5,9 @@ import { RecipeDto } from "../../global/recipe-dto.ts";
 import { validasaur, Context } from "../../deps.ts";
 
 const recipeValidationRules = {
-  title: [validasaur.required, validasaur.minLength(1)],
-  description: [validasaur.required, validasaur.minLength(1)],
-  ingredients: [validasaur.required],
-  // TODO: do validation
+  title: [validasaur.required, validasaur.maxLength(100)],
+  description: [validasaur.required, validasaur.maxLength(500)],
+  ingredients: validasaur.validateArray(true, [validasaur.required, validasaur.maxLength(50)]),
 };
 
 const getRecipeData = async (ctx: Context) => {
@@ -51,7 +50,7 @@ const viewRecipe = async (ctx: any) => {
 
   if (recipe === -1) {
     ctx.response.status = 400;
-    ctx.response.body = "Recipe could not be found!";
+    ctx.response.body = { message: "Recipe could not be found!" };
     return;
   }
 
@@ -75,20 +74,20 @@ const addRecipe = async (ctx: Context) => {
     recipeData,
     recipeValidationRules,
   );
-  
+
   const recipe = await recipeService.findRecipeByUserIdAndTitle(ctx.state.user.id, recipeData.title);
 
   if (recipe !== -1) {
     console.error("Unique key constraint violation!");
     ctx.response.status = 400;
-    ctx.response.body = "Recipe could not be created because a user can not have multiple recipes with the same name!";
+    ctx.response.body = { message: "Recipe could not be created because a user can not have multiple recipes with the same name!" };
     return;
   }
 
   if (!passes) {
     console.error(errors);
     ctx.response.status = 400; // Bad Request
-    ctx.response.body = errors;
+    ctx.response.body = { message: "Validation failed with the following errors:", errors: validasaur.flattenMessages(errors, true) };
     return;
   } else {
     await recipeService.addRecipe(
@@ -102,7 +101,7 @@ const addRecipe = async (ctx: Context) => {
     if (recipe === -1) {
       console.error("Could not create recipe. Please try again.");
       ctx.response.status = 400; // Bad Request
-      ctx.response.body = "Could not create recipe. Please try again.";
+      ctx.response.body = { message: "Could not create recipe. Please try again." };
       return;
     }
 
@@ -110,7 +109,7 @@ const addRecipe = async (ctx: Context) => {
       await ingredientService.addIngredient(
         recipe.id,
         name
-        )
+      )
     })
 
     ctx.response.status = 200; // OK
@@ -124,14 +123,14 @@ const deleteRecipe = async (ctx: any) => {
   if (recipe === -1 || recipe.id != rId) {
     console.error("Could not delete recipe. Please try again.");
     ctx.response.status = 400; // Bad Request
-    ctx.response.body = "Could not delete recipe. Please try again.";
+    ctx.response.body = { message: "Could not delete recipe. Please try again." };
     return;
   }
 
   if ((recipe.user_id != ctx.state.user.id) && !ctx.state.user.admin) {
     console.error("Not authorised to delete recipe.");
     ctx.response.status = 401; // Bad Request
-    ctx.response.body = "Not authorised to delete this recipe!";
+    ctx.response.body = { message: "Not authorised to delete this recipe!" };
     return;
   }
 
@@ -147,13 +146,13 @@ const updateRecipe = async (ctx: any) => {
     recipeData,
     recipeValidationRules,
   );
-  
+
   const recipe = await recipeService.findRecipeById(rId);
 
   if (recipe === -1) {
     console.error("Update failed, Recipe not found!");
-    ctx.response.status = 400;
-    ctx.response.body = "Recipe could not be updated because it could not be found!";
+    ctx.response.status = 404;
+    ctx.response.body = { message: "Recipe could not be updated because it could not be found!" };
     return;
   }
 
@@ -162,21 +161,21 @@ const updateRecipe = async (ctx: any) => {
   if (recipe_duplicate !== -1) {
     console.error("Unique key constraint violation!");
     ctx.response.status = 400;
-    ctx.response.body = "Recipe could not be created because a user can not have multiple recipes with the same name!";
+    ctx.response.body = { message: "Recipe could not be created because a user can not have multiple recipes with the same name!" };
     return;
   }
 
   if ((recipe.user_id != ctx.state.user.id) && !ctx.state.user.admin) {
     console.error("Not authorised to update recipe.");
     ctx.response.status = 401; // Bad Request
-    ctx.response.body = "Not authorised to update this recipe!";
+    ctx.response.body = { message: "Not authorised to update this recipe!" };
     return;
   }
 
   if (!passes) {
     console.error(errors);
     ctx.response.status = 400; // Bad Request
-    ctx.response.body = errors;
+    ctx.response.body = { message: "Validation failed with the following errors:", errors: validasaur.flattenMessages(errors, true) };
     return;
   } else {
     await recipeService.updateRecipeById(
@@ -191,7 +190,7 @@ const updateRecipe = async (ctx: any) => {
       await ingredientService.addIngredient(
         recipe.id,
         name
-        )
+      )
     })
 
     ctx.response.status = 200; // OK
