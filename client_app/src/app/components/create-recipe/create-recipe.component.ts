@@ -1,11 +1,10 @@
 import { Component, OnInit, HostListener, EventEmitter, Output, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray }
+import {FormControl, Validators, FormBuilder, FormArray }
   from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { SuccessSnackbarComponent } from '../success-snackbar/success-snackbar.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorModalComponent } from '../error-modal/error-modal.component';
 
 @Component({
   selector: 'app-create-recipe',
@@ -16,12 +15,12 @@ export class CreateRecipeComponent implements OnInit {
   maxRows = 0;
 
   form = this.fb.group({
-    "title": ["", Validators.required],
-    "description": ["", Validators.required],
+    "title": new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    "description": new FormControl('', [Validators.required, Validators.maxLength(500)]),
     ingredients: this.fb.array([
-      new FormControl('', Validators.required),
-      new FormControl('', Validators.required),
-      new FormControl('', Validators.required),
+      new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      new FormControl('', [Validators.required, Validators.maxLength(50)]),
     ])
   });
 
@@ -65,12 +64,20 @@ export class CreateRecipeComponent implements OnInit {
 
   addIngredientItem() {
     const control = this.form.controls.ingredients as FormArray;
-    control.push(new FormControl('', Validators.required));
+    control.push(new FormControl('', [Validators.required, Validators.maxLength(50)]));
   }
 
   removeIngredientItem(index: number) {
     const control = this.form.controls.ingredients as FormArray;
     control.removeAt(index);
+  }
+
+  getErrorMessage(control: FormControl, field: string) {
+    if (control.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return control.hasError('maxlength') ? `${field} is too long!` : '';
   }
 
   onSubmit() {

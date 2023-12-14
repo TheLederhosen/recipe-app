@@ -9,7 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export class ErrorModalComponent {
   constructor(
     public dialogRef: MatDialogRef<ErrorModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { message: string; status?: number },
+    @Inject(MAT_DIALOG_DATA) public data: { message: string; errors?: any; status?: number },
   ) {}
 
   close(): void {
