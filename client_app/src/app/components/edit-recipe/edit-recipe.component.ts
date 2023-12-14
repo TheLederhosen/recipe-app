@@ -28,7 +28,7 @@ export class EditRecipeComponent {
 
   isLoaded: boolean = false;
 
-  form: FormGroup = this.fb.group({
+  form = this.fb.group({
     "title": '',
     "description": '',
     ingredients: this.fb.array([])
@@ -59,9 +59,10 @@ export class EditRecipeComponent {
             "description": [this.recipe.description, Validators.required],
             ingredients: this.fb.array([])
           });
-
+          
+          const control = this.form.controls.ingredients as FormArray;
           this.recipe.ingredients.forEach(ingredient => {
-            this.ingredients.push(new FormControl(ingredient.name, Validators.required));
+            control.push(new FormControl(ingredient.name, Validators.required));
           })
 
           this.checkValidity();
@@ -91,17 +92,13 @@ export class EditRecipeComponent {
     }
   }
 
-  get ingredients() {
-    return this.form.controls['ingredients'] as FormArray;
-  }
-
   addIngredientItem() {
-    const control = this.ingredients;
-    control.push(new FormControl('', Validators.required));
+    const control = this.form.controls.ingredients as FormArray;
+    control.push(new FormControl('', [Validators.required, Validators.maxLength(50)]));
   }
 
   removeIngredientItem(index: number) {
-    const control = this.ingredients;
+    const control = this.form.controls.ingredients as FormArray;
     control.removeAt(index);
   }
 
@@ -131,11 +128,19 @@ export class EditRecipeComponent {
     return false;
   }
 
+  getErrorMessage(control: FormControl, field: string) {
+    if (control.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return control.hasError('maxlength') ? `${field} is too long!` : '';
+  }
+
   onSubmit() {
     if (this.form.valid) {
-      const title = this.form.controls['title'].value !== null ? this.form.controls['title'].value : "";
-      const description = this.form.controls['description'].value !== null ? this.form.controls['description'].value : ""
-      const ingredients = this.form.controls['ingredients'].value.filter((item: any): item is string => item !== null);
+      const title = this.form.controls.title.value !== null ? this.form.controls.title.value : "";
+      const description = this.form.controls.description.value !== null ? this.form.controls.description.value : ""
+      const ingredients = this.form.controls.ingredients.value.filter((item: any): item is string => item !== null);
 
       if (this.isDifferent(title, description, ingredients)) {
         this.recipeService.updateRecipe(this.recipe.id, title, description, ingredients).subscribe({
